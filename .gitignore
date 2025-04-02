@@ -6,6 +6,7 @@
 !/.p10k.zsh
 !/.gitconfig
 !/.gitignore_global
+!/.bin/
 !/.bin/**
 
 !/README.md
