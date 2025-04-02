@@ -1,6 +1,6 @@
 [user]
 	email = 109570410+sas-news@users.noreply.github.com
 	name = SAS NEWS
-[url "github:"]
+[url "git@github.com:"]
 	InsteadOf = https://github.com/
-	InsteadOf = git@github.com:
+
