@@ -4,3 +4,5 @@
 [url "git@github.com:"]
 	InsteadOf = https://github.com/
 
+[core]
+	excludesfile = /home/sasnews/.gitignore_global

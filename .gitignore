@@ -1,0 +1,13 @@
+/*
+/.**
+
+# ホワイトリスト
+!/.zshrc
+!/.p10k.zsh
+!/.gitconfig
+!/.gitignore_global
+!/.bin/
+
+!/README.md
+!/LICENSE
+!.gitignore
