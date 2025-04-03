@@ -34,6 +34,7 @@
     # =========================[ Line #1 ]=========================
     os_icon                 # os identifier
     dir                     # current directory
+    vi_mode                 # vi mode
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol

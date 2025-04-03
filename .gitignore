@@ -8,6 +8,8 @@
 !/.gitignore_global
 !/.bin/
 !/.bin/**
+!/.config/nvim/
+!/.config/nvim/**
 
 !/README.md
 !/LICENSE
