@@ -23,7 +23,8 @@ zstyle ':completion:*' ignore-parents parent pwd ..    # ../ の後は今いる�
 zstyle ':completion:*:default' menu select=1           # 補間候補一覧上で移動できるように
 zstyle ':completion:*:cd:*' ignore-parents parent pwd  # 補間候補にカレントディレクトリは含めない
 
-HISTFILE=~/.zsh_history
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/share}/zsh/history"
+[[ -d "${HISTFILE:h}" ]] || mkdir -p "${HISTFILE:h}"
 HISTSIZE=1000000
 SAVEHIST=1000000
 
@@ -57,15 +58,30 @@ export PATH="$HOME/.d2/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
 
+# Stage-2 live block (guarded): sheldon + fzf + zoxide + eza.
+# zle-widget plugins stay silent without a terminal (piped zsh -i -c, dumb TERM).
+if [[ -t 0 ]] && command -v sheldon >/dev/null 2>&1; then
+  eval "$(sheldon source)"
+fi
+if [[ -t 0 ]] && command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh)
+fi
+if [[ -t 0 ]] && [ -f /usr/share/fzf/key-bindings.zsh ]; then
+  source /usr/share/fzf/key-bindings.zsh
+fi
+if [[ -t 0 ]] && [ -f /usr/share/fzf/completion.zsh ]; then
+  source /usr/share/fzf/completion.zsh
+fi
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
+if command -v eza >/dev/null 2>&1; then
+  alias ls='eza'
+  alias ll='eza -lh'
+  alias la='eza -a'
+fi
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh"
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && command -v kiro >/dev/null 2>&1 && . "$(kiro --locate-shell-integration-path zsh)"
-
-# Stage-2 bridge (inert, T9): sheldon placeholder — NOT activated.
-# Stage-2 plan: sheldon + fzf. Kept guarded + no-op so Stage-1 boot is unchanged.
-if command -v sheldon >/dev/null 2>&1; then
-  # eval "$(sheldon source)"  # Stage-2: uncomment to activate
-  true
-fi
