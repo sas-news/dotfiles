@@ -12,6 +12,7 @@ mise
 # shell / multiplexer / editor
 tmux
 zsh
+sheldon
 neovim
 
 # fuzzy finder / navigation / ls / cat replacements

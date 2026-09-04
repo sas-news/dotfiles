@@ -39,3 +39,9 @@ gc:
     @echo "just gc: prune broken symlinks under HOME"
     @find "$HOME" -maxdepth 1 -xtype l -print
     @echo "Remove with: find ~ -maxdepth 1 -xtype l -delete (review list above first)"
+
+# Install tmux plugins via TPM (clone TPM if missing, sudo-free).
+tmux-setup:
+    @echo "just tmux-setup: [ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; ~/.tmux/plugins/tpm/bin/install_plugins"
+    @[ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true
+    @~/.tmux/plugins/tpm/bin/install_plugins || true
