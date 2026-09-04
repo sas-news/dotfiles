@@ -1,0 +1,8 @@
+# Minimal mise pins for single Arch Linux host (Stage-1 management base).
+# Trusted/installed via `.bin/arch-setup.sh` (`mise trust` + `mise install`).
+# No Nix, no LLM plugins (see docs/adr-001-management-base.md).
+
+[tools]
+ripgrep = "latest"
+fd = "latest"
+node = "lts"

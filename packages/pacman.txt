@@ -1,0 +1,32 @@
+# Curated pacman manifest for single Arch Linux host (Stage-1 management base).
+# Reference: generated from `pacman -Qqe` (177 explicit packages, 2026-09-04)
+# then hand-pruned to this curated set. Do NOT dump raw `pacman -Qqe` here.
+# Install: sudo pacman -S --needed - < packages/pacman.txt
+# See .bin/arch-setup.sh for the full bootstrap order. No Nix (see docs/adr-001-management-base.md).
+
+# management base (Option-A: Stow + just + mise)
+stow
+just
+mise
+
+# shell / multiplexer / editor
+tmux
+zsh
+neovim
+
+# fuzzy finder / navigation / ls / cat replacements
+fzf
+zoxide
+eza
+bat
+
+# vcs / hosting cli (github-cli provides the `gh` binary)
+git
+github-cli # provides gh
+
+# search / locate / bootstrap helpers (mise also pins ripgrep/fd, see mise.toml)
+ripgrep
+fd
+unzip
+curl
+openssh
