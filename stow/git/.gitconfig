@@ -5,4 +5,13 @@
 	InsteadOf = https://github.com/
 
 [core]
-	excludesfile = /home/sasnews/.gitignore_global
+	excludesfile = ~/.gitignore_global
+	editor = sh -c 'command -v nvim >/dev/null 2>&1 && exec nvim "$@" || command -v nano >/dev/null 2>&1 && exec nano "$@" || exec vi "$@"' sh
+[init]
+	defaultBranch = main
+[credential "https://github.com"]
+	helper = 
+	helper = !command -v gh >/dev/null 2>&1 && exit 0 || gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !command -v gh >/dev/null 2>&1 && exit 0 || gh auth git-credential
