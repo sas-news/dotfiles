@@ -2,15 +2,28 @@
 /.**
 
 # ホワイトリスト
-!/.zshrc
-!/.p10k.zsh
-!/.gitconfig
-!/.gitignore_global
-!/.bin/
-!/.bin/**
-!/.config/nvim/
-!/.config/nvim/**
+!/stow/
+stow/*
+!/stow/zsh/
+!/stow/zsh/**
+!/stow/nvim/
+!/stow/nvim/**
+!/stow/ghostty/
+!/stow/ghostty/**
+!/stow/git/
+!/stow/git/**
+!/stow/bin/
+!/stow/bin/**
+!/stow/tmux/
+!/stow/tmux/**
 
+!/docs/
+!/docs/**
+!/packages/
+!/packages/**
+!/tests/
+!/tests/**
+!/mise.toml
 !/README.md
 !/LICENSE
 !.gitignore
