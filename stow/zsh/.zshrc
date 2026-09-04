@@ -72,6 +72,20 @@ fi
 if [[ -t 0 ]] && [ -f /usr/share/fzf/completion.zsh ]; then
   source /usr/share/fzf/completion.zsh
 fi
+# fzf looks: fd source + mocha colors + right-side preview.
+# Env vars only (no widgets), so safe without a terminal.
+if command -v fzf >/dev/null 2>&1; then
+  if command -v fd >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
+  fi
+  export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview '([[ -f {} ]] && bat --color=always --style=numbers --line-range=:100 {} 2>/dev/null) || ([[ -d {} ]] && eza -1 --color=always {} 2>/dev/null) || echo {}' --preview-window=right:55%:wrap --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8,fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc,marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+fi
+# fzf-tab previews (needs fzf-tab from sheldon; harmless zstyle without it).
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:*:*' fzf-preview '([[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:80 $realpath 2>/dev/null) || eza -1 --color=always $realpath 2>/dev/null'
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh --cmd cd)"
 fi
