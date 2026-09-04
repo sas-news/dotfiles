@@ -1,0 +1,10 @@
+-- Stage-2 bridge (inert, T9): lazy-split placeholder — NOTE ONLY, not required.
+-- File: lua/stage2_bridge.lua (this file; NOT required by init.lua in Stage-1).
+-- Stage-2 plan: split init.lua into lua/ modules (plugins/lsp/treesitter/
+-- lualine/colorscheme). init.lua still loads standalone; do NOT require this
+-- file until Stage-2. No active code below (comment-only skeleton).
+-- Future modules (list only, NOT activated):
+--   lua/plugins.lua      -> lazy.nvim plugin specs (noice, lexima + lualine, treesitter, colorscheme)
+--   lua/lsp.lua          -> LSP setup (NOT activated)
+--   lua/treesitter.lua   -> treesitter setup (NOT activated)
+--   lua/ui.lua           -> lualine + colorscheme (NOT activated)
