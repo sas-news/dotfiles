@@ -24,6 +24,8 @@ stow/*
 !/tests/
 !/tests/**
 !/mise.toml
+!/justfile
+!/AGENTS.md
 !/README.md
 !/LICENSE
 !.gitignore
