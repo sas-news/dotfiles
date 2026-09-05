@@ -34,6 +34,9 @@ setopt hist_ignore_space       # historyに保存するときに余分なスペ�
 setopt hist_reduce_blanks      # historyに保存するときに余分なスペースを削除する
 setopt hist_save_no_dups       # 重複するコマンドが保存されるとき、古い方を削除する
 setopt inc_append_history      # 実行時に履歴をファイルにに追加していく
+setopt auto_cd                 # ディレクトリ名だけで移動 (例: .. や ~/src と打つだけ)
+setopt auto_pushd              # 移動履歴を残し cd -<Tab> で一覧から戻れる
+setopt pushd_ignore_dups       # 移動履歴の重複を残さない
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -49,6 +52,10 @@ alias ..='cd ../'
 alias ...='cd ../../'
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
+# manをbatで読む (色+行番号)。bat不在時は通常表示。
+if command -v bat >/dev/null 2>&1; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
 POWERLEVEL10K_HOME="${POWERLEVEL10K_HOME:-$HOME/powerlevel10k}"
 [[ -f "${POWERLEVEL10K_HOME}/powerlevel10k.zsh-theme" ]] && source "${POWERLEVEL10K_HOME}/powerlevel10k.zsh-theme"
 
