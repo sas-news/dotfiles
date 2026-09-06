@@ -65,6 +65,11 @@ export PATH="$HOME/.d2/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
 
+# mise: per-directory tool versions (node etc. from mise.toml when you cd in).
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
 # Stage-2 live block (guarded): sheldon + fzf + zoxide + eza.
 # zle-widget plugins stay silent without a terminal (piped zsh -i -c, dumb TERM).
 if [[ -t 0 ]] && command -v sheldon >/dev/null 2>&1; then
