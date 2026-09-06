@@ -6,3 +6,6 @@
 ripgrep = "latest"
 fd = "latest"
 node = "lts"
+"lua-language-server" = "latest"
+"npm:typescript-language-server" = "latest"
+"npm:tree-sitter-cli" = "latest"
