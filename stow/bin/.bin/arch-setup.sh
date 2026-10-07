@@ -4,7 +4,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-DOTDIR="$(dirname "${SCRIPT_DIR}")"
+# Script lives at stow/bin/.bin/ -> repo root is three levels up.
+DOTDIR="$(cd "${SCRIPT_DIR}/../../.." && pwd -P)"
 MANIFEST="${DOTDIR}/packages/pacman.txt"
 
 # 1. pacman: install curated manifest (skips already-installed via --needed).

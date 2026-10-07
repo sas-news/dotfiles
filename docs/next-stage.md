@@ -1,50 +1,46 @@
-# Stage-2 plan (bridge stubs, inert — T9)
+# Stage-2 — ACTIVATED
 
-Status: Planned, NOT activated. Stage-1 boot unchanged.
-Depends on: T4 only. Blocks: T8 verification.
-Host context: Nvim 0.12.5 / zsh 5.9.2 / Ghostty truecolor / 0xProto present.
+Status: **Done** (landed across 2026-09-05..07 commits; verified 2026-10-07).
+`just doctor` runs `tests/stage2_verify.sh` — 7/7 checks pass.
+Host context: Nvim 0.12.x / zsh 5.9.x / Ghostty truecolor / 0xProto present.
 
-All Stage-2 items below are LIST ONLY. Stubs are commented/guarded and
-must not change `zsh -i -c true` or `nvim --headless +qa` behavior.
+This file was originally the Stage-2 plan ("bridge stubs, inert — T9").
+Everything listed below is now live. Kept as a map of what landed where.
 
-## zsh — sheldon / fzf (list only)
+## zsh — landed
 
-- `sheldon` plugin manager (NOT activated)
-- `fzf` fuzzy finder (NOT activated)
-- `starship` prompt (NOT activated)
-- Stub: `stow/zsh/.zshrc` tail has guarded no-op block:
-  `command -v sheldon` guard with the `eval "$(sheldon source)"` line
-  kept commented + `true` no-op.
+- `stow/zsh/.zshrc`: powerlevel10k + instant prompt, XDG `HISTFILE`
+  (`$XDG_STATE_HOME/zsh/history`), `mise activate zsh`.
+- Guarded Stage-2 block (active, terminal-gated): `sheldon source`,
+  `fzf --zsh` + Arch key-bindings/completion, fd-backed FZF defaults with
+  mocha colors + bat/eza preview, fzf-tab previews, `zoxide init --cmd cd`,
+  `eza` aliases (`ls`/`ll`/`la`).
+- `stow/zsh/.p10k.zsh` and `stow/zsh/.config/sheldon/plugins.toml` stowed.
 
-## nvim — lazy-split / LSP / treesitter / lualine / colorscheme (list only)
+## nvim — landed
 
-- Current: `stow/nvim/.config/nvim/init.lua` (30 lines: lazy + noice + lexima)
-- Stage-2: split `init.lua` into `lua/` modules (NOT activated)
-- List only: LSP, treesitter, lualine, colorscheme
-- Stub: `stow/nvim/.config/nvim/lua/stage2_bridge.lua` is a comment-only
-  skeleton; `init.lua` still loads standalone (tail note only, no `require`).
+- `stow/nvim/.config/nvim/`: `init.lua` + `lua/` split — `config/`
+  (options, keymaps, autocmds), `plugins/` (core, ui, edit, fzf, lsp,
+  completion, treesitter, tools, which-key), `lsp/servers.lua`,
+  `lazy-lock.json` pinned.
+- `lua/stage2_bridge.lua` still exists as a comment-only inert stub —
+  historical leftover, safe to delete whenever.
 
-## tmux — TPM / catppuccin / truecolor (list only)
+## tmux — landed
 
-- `TPM` plugin manager (NOT installed / NOT activated)
-- `catppuccin/tmux` theme, flavour `mocha` (list only)
-- truecolor passthrough (`tmux-256color`, `terminal-overrides`) (list only)
-- Stub: `stow/tmux/.tmux.conf` is fully commented; `run '~/.tmux/plugins/tpm/tpm'`
-  stays commented until Stage-2.
+- `stow/tmux/.tmux.conf`: TPM auto-clone, `tmux-256color` + Ghostty `Tc`
+  truecolor overrides, mouse on, vi copy-mode, catppuccin `mocha` status,
+  `tmux-yank` with OSC52 passthrough for SSH clipboard.
+- `just tmux-setup` clones TPM + installs plugins (idempotent).
 
-## ghostty — font materials (note only)
+## ghostty — still inert by design
 
-- Host: Ghostty truecolor, 0xProto present
-- Stage-2 pin (NOT activated, note in `stow/ghostty/.config/ghostty/config`):
-  `font-family = 0xProto Nerd Font Mono` (commented)
+- `stow/ghostty/.config/ghostty/config` keeps the font pin commented:
+  `# font-family = 0xProto Nerd Font Mono`. DOC-EDGE-02 asserts it stays
+  inert; flip it to active deliberately, not by accident.
 
-## Verification (Stage-1 boot unchanged)
+## Verification
 
 ```sh
-zsh -i -c true && echo ZSH_OK
-nvim --headless +qa && echo NVIM_OK
-grep -c -E 'sheldon|stage2_bridge|TPM|0xProto' docs/next-stage.md stow/zsh/.zshrc stow/nvim/.config/nvim/init.lua stow/nvim/.config/nvim/lua/stage2_bridge.lua stow/tmux/.tmux.conf stow/ghostty/.config/ghostty/config
+just doctor   # doctor.sh 8 checks + stage2_verify.sh 7 checks
 ```
-
-Expected: both smoke tests pass; grep count > 0 (bridge notes present,
-all inert).

@@ -1,5 +1,10 @@
 # .config inventory (read-only survey)
 
+> Historical note (2026-10-07): the source dir `dotfiles/.config/` was a
+> leftover from the whole-dir symlink era (all entries REJECT/GUI state,
+> gitignored). It was retired to `~/.dotbackup/2026-10-07-legacy-dotconfig/`.
+> `~/.config` is a real dir now; only nvim + ghostty are stow-linked.
+
 - Source: `/home/sasnews/dotfiles/.config/` (enumerated with `ls -1`, no moves/deletes)
 - Context: `~/.config` is a whole-dir symlink to the repo path above, so GUI cache/state is mixed in and hard to distinguish (survey purpose)
 - Observed rows: 62 data rows below (61 entries from `ls -1` + 1 tmux future placeholder not present on disk)

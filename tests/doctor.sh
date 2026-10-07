@@ -47,7 +47,7 @@ GHOSTTY_CFG="$REPO/stow/ghostty/.config/ghostty/config"
 # --- DOC-HAPPY-01 (S2): file-level stow links resolve ---
 HAPPY1_OK=1
 HAPPY1_DETAIL=""
-for link_target in "$HOME/.zshrc:stow/zsh" "$HOME/.gitconfig:stow/git" "$HOME/.config/nvim:stow/nvim" "$HOME/.config/ghostty:stow/ghostty"; do
+for link_target in "$HOME/.zshrc:stow/zsh" "$HOME/.gitconfig:stow/git" "$HOME/.gitignore_global:stow/git" "$HOME/.ssh/config:stow/ssh" "$HOME/.config/nvim:stow/nvim" "$HOME/.config/ghostty:stow/ghostty" "$HOME/.config/bat:stow/bat" "$HOME/.config/sheldon:stow/zsh"; do
     link="${link_target%%:*}"
     want="${link_target##*:}"
     if test -L "$link"; then
@@ -119,7 +119,7 @@ fi
 # Allowlist = cutover renames + management-base paths. Anything else fails.
 UNEXPECTED=""
 if command -v git >/dev/null 2>&1 && test -d "$REPO/.git"; then
-    UNEXPECTED="$(git -C "$REPO" status --porcelain 2>/dev/null | grep -v -E '\.gitignore|README\.md|justfile|mise\.toml|LICENSE|docs/|packages/|stow/|tests/|\.bin/|\.zshrc|\.p10k\.zsh|\.gitconfig|\.gitignore_global|\.config/nvim' || true)"
+    UNEXPECTED="$(git -C "$REPO" status --porcelain 2>/dev/null | grep -v -E '\.gitignore|README\.md|AGENTS\.md|justfile|mise\.toml|LICENSE|docs/|packages/|stow/|tests/|\.bin/|\.zshrc|\.p10k\.zsh|\.gitconfig|\.gitignore_global|\.config/nvim' || true)"
     if test -z "$UNEXPECTED"; then
         ok "DOC-REG-02" "git status porcelain holds only Stage-1 intended files"
     else
