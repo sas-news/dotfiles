@@ -1,0 +1,4 @@
+# bat config — mocha theme to match nvim/tmux/fzf.
+# `bat --list-themes` shows what's installed (Catppuccin Mocha is).
+--theme="Catppuccin Mocha"
+--style=numbers,changes

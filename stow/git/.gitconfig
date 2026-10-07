@@ -7,6 +7,11 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = sh -c 'command -v nvim >/dev/null 2>&1 && exec nvim "$@" || command -v nano >/dev/null 2>&1 && exec nano "$@" || exec vi "$@"' sh
+[alias]
+	st = status -sb
+	lg = log --oneline --graph --decorate
+	br = branch -vv
+	sw = switch
 [init]
 	defaultBranch = main
 [credential "https://github.com"]

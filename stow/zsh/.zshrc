@@ -52,6 +52,8 @@ alias ..='cd ../'
 alias ...='cd ../../'
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
+# ssh to hosts that lack xterm-ghostty/tmux-256color terminfo: universal TERM.
+alias ssh='TERM=xterm-256color ssh'
 # manをbatで読む (色+行番号)。bat不在時は通常表示。
 if command -v bat >/dev/null 2>&1; then
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -64,6 +66,8 @@ POWERLEVEL10K_HOME="${POWERLEVEL10K_HOME:-$HOME/powerlevel10k}"
 export PATH="$HOME/.d2/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
+export EDITOR=nvim
+export VISUAL=nvim
 
 # mise: per-directory tool versions (node etc. from mise.toml when you cd in).
 if command -v mise >/dev/null 2>&1; then

@@ -16,6 +16,10 @@ stow/*
 !/stow/bin/**
 !/stow/tmux/
 !/stow/tmux/**
+!/stow/ssh/
+!/stow/ssh/**
+!/stow/bat/
+!/stow/bat/**
 
 !/docs/
 !/docs/**
