@@ -1,7 +1,8 @@
 # Curated pacman manifest for single Arch Linux host (Stage-1 management base).
 # Reference: generated from `pacman -Qqe` (177 explicit packages, 2026-09-04)
 # then hand-pruned to this curated set. Do NOT dump raw `pacman -Qqe` here.
-# Install: sudo pacman -S --needed - < packages/pacman.txt
+# Install: sed 's/[[:space:]]*#.*//; /^[[:space:]]*$/d' packages/pacman.txt | sudo pacman -S --needed -
+# (pacman reads stdin lines verbatim as package names — comments must be stripped first)
 # See stow/bin/.bin/arch-setup.sh for the full bootstrap order. No Nix (see docs/adr-001-management-base.md).
 
 # management base (Option-A: Stow + just + mise)
