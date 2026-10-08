@@ -17,11 +17,14 @@ bootstrap:
     for t in stow just; do
         command -v "$t" >/dev/null || { echo "missing: $t (install via packages/pacman.txt)" >&2; exit 1; }
     done
+    STOW_ROOT="$(realpath stow)"
     is_ours() {
         # true when target resolves into this repo — covers leaf links AND
         # real files reached through a parent dir symlink (e.g. ~/.config/nvim
         # -> stow pkg dir makes ~/.config/nvim/* resolve inside the repo).
-        case "$(realpath -m "$1" 2>/dev/null)" in *dotfiles/stow/*) return 0 ;; esac
+        # Anchored on this clone's stow dir, not the literal name "dotfiles" —
+        # a renamed checkout must still be recognized as ours (mv guts the repo).
+        case "$(realpath -m "$1" 2>/dev/null)" in "$STOW_ROOT"/*) return 0 ;; esac
         return 1
     }
     BKROOT="$HOME/.dotbackup/bootstrap-$(date +%Y%m%d-%H%M%S)"
@@ -110,6 +113,14 @@ gc:
 
 # Install tmux plugins via TPM (clone TPM if missing, sudo-free).
 tmux-setup:
-    @echo "just tmux-setup: [ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; ~/.tmux/plugins/tpm/bin/install_plugins"
-    @[ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true
-    @~/.tmux/plugins/tpm/bin/install_plugins || true
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "just tmux-setup: clone TPM if missing -> install_plugins"
+    if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+        echo "git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
+        git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+    else
+        echo "TPM already present, skipping clone"
+    fi
+    echo "~/.tmux/plugins/tpm/bin/install_plugins"
+    "$HOME/.tmux/plugins/tpm/bin/install_plugins"

@@ -9,8 +9,12 @@ DOTDIR="$(cd "${SCRIPT_DIR}/../../.." && pwd -P)"
 MANIFEST="${DOTDIR}/packages/pacman.txt"
 
 # 1. pacman: install curated manifest (skips already-installed via --needed).
+# pacman reads stdin targets line-by-line verbatim — no comment handling —
+# so '#' lines and inline notes in pacman.txt would become package names and
+# abort the run with "target not found". Strip them first (same filter as
+# `just pkg-diff`'s manifest()).
 if [[ -f "${MANIFEST}" ]]; then
-  sudo pacman -S --needed --noconfirm - < "${MANIFEST}"
+  sed 's/[[:space:]]*#.*//; /^[[:space:]]*$/d' "${MANIFEST}" | sudo pacman -S --needed --noconfirm -
 else
   echo "missing manifest: ${MANIFEST}" >&2
   exit 1
