@@ -18,10 +18,14 @@ Bare `just` (= `just --list`) shows every recipe. Forgetful human approved.
   (`git pull --ff-only` + relink), `gc` (list broken `~/` symlinks),
   `tmux-setup` (TPM clone + plugin install), `pkg-diff` (pacman manifest
   drift), `upgrade` (mise + lazy.nvim + TPM update).
-- `stow/` — THE package layout: `bat`, `bin`, `ghostty`, `git`, `nvim`,
-  `ssh`, `tmux`, `zsh`. Each package mirrors `$HOME`-relative paths
-  (`stow/nvim/.config/nvim` -> `~/.config/nvim`). New packages need a
-  whitelist pair in `.gitignore` (`!/stow/<pkg>/` + `!/stow/<pkg>/**`).
+- `stow/` — THE package layout: `bat`, `bin`, `ghostty`, `git`,
+  `lazygit`, `nvim`, `ssh`, `tmux`, `yazi`, `zsh`. Each package mirrors
+  `$HOME`-relative paths (`stow/nvim/.config/nvim` -> `~/.config/nvim`).
+  New packages need a whitelist pair in `.gitignore`
+  (`!/stow/<pkg>/` + `!/stow/<pkg>/**`).
+- `mise.toml` — ALL non-system tool pins incl. the cool-CLI tier
+  (delta/lazygit/yazi/glow/fastfetch). sudo-free install; prefer mise
+  over pacman.txt for plain user tools.
 - `stow/bin/.bin/` — scripts stowed to `~/.bin`:
   `install.sh` = deprecated shim (exits 1, whole-dir `ln -snf` retired),
   `arch-setup.sh` = fresh-machine order (pacman manifest -> mise ->

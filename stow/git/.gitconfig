@@ -7,6 +7,16 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = sh -c 'command -v nvim >/dev/null 2>&1 && exec nvim "$@" || command -v nano >/dev/null 2>&1 && exec nano "$@" || exec vi "$@"' sh
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+	syntax-theme = "Catppuccin Mocha"
+[merge]
+	conflictstyle = zdiff3
 [alias]
 	st = status -sb
 	lg = log --oneline --graph --decorate

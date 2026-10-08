@@ -47,7 +47,7 @@ GHOSTTY_CFG="$REPO/stow/ghostty/.config/ghostty/config"
 # --- DOC-HAPPY-01 (S2): file-level stow links resolve ---
 HAPPY1_OK=1
 HAPPY1_DETAIL=""
-for link_target in "$HOME/.zshrc:stow/zsh" "$HOME/.gitconfig:stow/git" "$HOME/.gitignore_global:stow/git" "$HOME/.ssh/config:stow/ssh" "$HOME/.config/nvim:stow/nvim" "$HOME/.config/ghostty:stow/ghostty" "$HOME/.config/bat:stow/bat" "$HOME/.config/sheldon:stow/zsh"; do
+for link_target in "$HOME/.zshrc:stow/zsh" "$HOME/.gitconfig:stow/git" "$HOME/.gitignore_global:stow/git" "$HOME/.ssh/config:stow/ssh" "$HOME/.config/nvim:stow/nvim" "$HOME/.config/ghostty:stow/ghostty" "$HOME/.config/bat:stow/bat" "$HOME/.config/sheldon:stow/zsh" "$HOME/.config/zsh:stow/zsh" "$HOME/.config/lazygit:stow/lazygit" "$HOME/.config/yazi:stow/yazi"; do
     link="${link_target%%:*}"
     want="${link_target##*:}"
     if test -L "$link"; then

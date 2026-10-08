@@ -1,0 +1,3 @@
+# yazi theme: catppuccin mocha (vendored under flavors/ — same as `ya pkg add`)
+[flavor]
+dark = "catppuccin-mocha"

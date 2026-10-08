@@ -12,3 +12,10 @@ node = "lts"
 stylua = "latest"
 ruff = "latest"
 "npm:prettier" = "latest"
+
+# cool CLI tier (no sudo needed — mise installs to ~/.local/share/mise)
+delta = "latest"
+lazygit = "latest"
+yazi = "latest"
+glow = "latest"
+fastfetch = "latest"

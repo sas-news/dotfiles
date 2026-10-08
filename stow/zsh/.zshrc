@@ -76,6 +76,10 @@ fi
 
 # Stage-2 live block (guarded): sheldon + fzf + zoxide + eza.
 # zle-widget plugins stay silent without a terminal (piped zsh -i -c, dumb TERM).
+# Catppuccin mocha styles for zsh-syntax-highlighting (must load before sheldon).
+_ZSH_SYNHI_MOCHA="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh"
+[[ -f "$_ZSH_SYNHI_MOCHA" ]] && source "$_ZSH_SYNHI_MOCHA"
+unset _ZSH_SYNHI_MOCHA
 if [[ -t 0 ]] && command -v sheldon >/dev/null 2>&1; then
   eval "$(sheldon source)"
 fi
@@ -106,9 +110,33 @@ if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh --cmd cd)"
 fi
 if command -v eza >/dev/null 2>&1; then
-  alias ls='eza'
-  alias ll='eza -lh'
-  alias la='eza -a'
+  alias ls='eza --icons=auto'
+  alias ll='eza --icons=auto -lh'
+  alias la='eza --icons=auto -a'
+fi
+if command -v lazygit >/dev/null 2>&1; then
+  alias lg='lazygit'
+fi
+if command -v glow >/dev/null 2>&1; then
+  alias cheat='glow -p ~/dotfiles/docs/cheatsheet.md'
+fi
+# yazi: `y` opens the file manager and cd's to wherever you quit.
+if command -v yazi >/dev/null 2>&1; then
+  y() {
+    local tmp cwd
+    tmp="$(mktemp -t yazi-cwd.XXXXXX)"
+    yazi "$@" --cwd-file="$tmp"
+    cwd="$(command cat -- "$tmp")"
+    if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+      builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+  }
+fi
+
+# fastfetch splash on real terminals (skipped inside tmux panes).
+if [[ -t 0 && -z "$TMUX" ]] && command -v fastfetch >/dev/null 2>&1; then
+  fastfetch
 fi
 
 # Kiro CLI post block. Keep at the bottom of this file.

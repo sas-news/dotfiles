@@ -45,12 +45,17 @@ stow/bin/.bin          -> ~/.bin           (arch-setup.sh 等)
 | `cd <名前>` | zoxide のスマートジャンプ（行ったことあるdirに飛べる） |
 | `dir名` だけ入力 | auto_cd（cd 不要で移動） |
 | `cd -` して Tab | 過去の移動履歴から選択（auto_pushd） |
-| `ls` / `ll` / `la` | eza に置き換わってる |
+| `ls` / `ll` / `la` | eza に置き換わってる（`--icons` つき） |
 | `..` / `...` | 上の階層へ |
+| `zi` | zoxide 履歴を fzf で選んでジャンプ |
+| `lg` | lazygit（git の TUI。mocha配色） |
+| `y` | yazi ファイルマネージャー（抜けた場所に cd される） |
+| `cheat` | このチートシートを glow で綺麗に開く |
 | `pbcopy` / `pbpaste` | xsel のクリップボード |
 | `man xxx` | bat で色付き表示 |
 | `p10k configure` | プロンプトの見た目を再設定 |
 | `ssh xxx` | 自動で TERM=xterm-256color に落とす（リモートに ghostty terminfo がなくても文字化けしない） |
+| `fastfetch` | スペック+ロゴ表示（新しいシェルを開いた時に自動で出る。tmux ペイン内では出ない） |
 
 `$EDITOR`/`$VISUAL` は nvim（sudoedit・crontab -e も nvim で開く）。
 
@@ -68,6 +73,7 @@ stow/bin/.bin          -> ~/.bin           (arch-setup.sh 等)
 | `prefix [` → `v` | コピーモード入って選択開始 |
 | 選択中に `y` | ヤンク（ローカルはxsel、SSH越しはOSC52でローカルPCへ） |
 | `prefix r` | .tmux.conf をリロード（再起動不要） |
+| `prefix o` | sessionx: fzf ポップアップでセッション切替 |
 | `prefix I` | TPM: プラグインをインストール（.tmux.conf編集後に打つ） |
 | `prefix U` | TPM: プラグイン更新 |
 | マウス | 全部有効（ペイン選択・スクロール・リサイズ） |
@@ -81,6 +87,7 @@ stow/bin/.bin          -> ~/.bin           (arch-setup.sh 等)
 |---|---|
 | `Space` 押して待つ | which-key が全部のキー一覧を出す（最強の思い出し手段） |
 | `Space ff` | ファイル検索（fzf-lua） |
+| `Space gg` | lazygit を新タブで開く |
 | `Space fg` | 全文 grep |
 | `Space fb` | バッファ一覧 |
 | `Space fh` | ヘルプ検索 |
@@ -105,6 +112,8 @@ stow/bin/.bin          -> ~/.bin           (arch-setup.sh 等)
 | `git br` | `branch -vv`（追跡先つきブランチ一覧） |
 | `git sw` | `switch`（ブランチ切替） |
 
+- `git diff` / `git log -p` は **delta** が表示: side-by-side + 行番号 + mocha色。diff 中 `n`/`N` で hunk ジャンプ
+- TUI でやりたい → `lg`（lazygit。`Space`=stage, `c`=commit, `P`=push, `q`=終了, `?`=キー一覧）
 - `git push` 等の https URL は自動で `git@github.com:` に書き換わる（SSH運用）
 - 認証は `gh auth login` 一回でOK（credential helper が gh を使う）
 - commit editor は nvim（無ければ nano → vi の順でフォールバック）
@@ -122,9 +131,10 @@ stow/bin/.bin          -> ~/.bin           (arch-setup.sh 等)
 | 何が | どこ |
 |---|---|
 | repo | `~/dotfiles` |
-| ツール pin（mise） | `~/dotfiles/mise.toml`（rg/fd/node/lua-ls/ts-ls/stylua/ruff/prettier） |
+| ツール pin（mise） | `~/dotfiles/mise.toml`（rg/fd/node/LSP系 + delta/lazygit/yazi/glow/fastfetch） |
 | pacman マニフェスト | `~/dotfiles/packages/pacman.txt`（ズレは `just pkg-diff`） |
 | sheldon プラグイン実体 | `~/.local/share/sheldon/`（lock もここ。repo には plugins.toml だけ） |
+| yazi テーマ | `stow/yazi/.config/yazi/flavors/`（catppuccin-mocha 同梱） |
 | powerlevel10k | `~/powerlevel10k`（repo外、arch-setup.sh がclone） |
 | tmux プラグイン | `~/.tmux/plugins/`（TPM管理） |
 | nvim プラグイン | `~/.local/share/nvim/lazy/`（lazy.nvim管理、ロックは `lazy-lock.json`） |

@@ -32,3 +32,6 @@ fd
 unzip
 curl
 openssh
+
+# NOTE: cool-CLI tier (delta/lazygit/yazi/glow/fastfetch) is mise-managed,
+# NOT here — see mise.toml. Keeps this list to sudo-able system packages.

@@ -20,6 +20,10 @@ stow/*
 !/stow/ssh/**
 !/stow/bat/
 !/stow/bat/**
+!/stow/lazygit/
+!/stow/lazygit/**
+!/stow/yazi/
+!/stow/yazi/**
 
 !/docs/
 !/docs/**
