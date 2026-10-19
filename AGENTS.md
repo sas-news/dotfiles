@@ -74,9 +74,11 @@ Bare `just` (= `just --list`) shows every recipe. Forgetful human approved.
   and `mv` will gut the repo. (Bit us once, 2026-10-07.)
 - In recipes, `a && b || echo` swallows b's failure — use explicit
   `if/else` so `just doctor` exits non-zero on real failures.
-- Login shell on Arch is `/usr/bin/zsh` — NOT `/bin/zsh`. An agent set
-  `/bin/zsh` on a host once (usermod skips /etc/shells validation) and
-  the user got locked out of SSH until fixed. Always `chsh -s
-  /usr/bin/zsh` and confirm `grep zsh /etc/shells` first.
+- Login shell: prefer canonical `/usr/bin/zsh` (though Arch registers
+  both in /etc/shells and /bin/zsh works). War story: a "locked out of
+  SSH" report looked like a bad shell field (`/bin/zsh` in passwd) —
+  turned out to be three password typos, nothing else. Diagnose with
+  `journalctl -u sshd` and `faillock --user <name>` BEFORE changing
+  account settings; don't hypothesize from plausible-looking config.
 - `pacman -S -` reads stdin verbatim — comments in pacman.txt must be
   stripped first (`sed 's/[[:space:]]*#.*//; /^$/d'`), see arch-setup.sh.

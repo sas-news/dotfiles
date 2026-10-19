@@ -158,3 +158,7 @@ stow/bin/.bin          -> ~/.bin           (arch-setup.sh 等)
 2. リンクおかしい → `just link`
 3. それでもダメ → `git status` で差分見る → 戻すなら `git checkout -- <file>` + `just link`
 4. 新マシン/初期化 → `~/.bin/arch-setup.sh`（pacman→mise→bootstrap→p10k 全部やる）
+5. SSHで締め出された → まず深呼吸してパスワードをゆっくり打ち直す。
+   連続ミスで一時ロック（faillock）のことあり。別アカから
+   `sudo faillock --user <名前> --reset` で解除、真相は
+   `sudo journalctl -u sshd | grep <名前>` に全部書いてある
