@@ -18,6 +18,12 @@ stow/*
 !/stow/tmux/**
 !/stow/ssh/
 !/stow/ssh/**
+# NEVER track keys — only `config` may live under stow/ssh/.ssh/.
+# If ~/.ssh became a dir symlink into the repo, generated keys would
+# land here and a careless `git add -A` would publish them.
+stow/ssh/.ssh/id_*
+stow/ssh/.ssh/authorized_keys
+stow/ssh/.ssh/known_hosts*
 !/stow/bat/
 !/stow/bat/**
 !/stow/lazygit/
